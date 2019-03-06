@@ -1,0 +1,44 @@
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+~  Copyright (C) 2019  Dante Falzone                                        ~
+~                                                                           ~
+~  This program is free software: you can redistribute it and/or modify     ~
+~  it under the terms of the GNU General Public License as published by     ~
+~  the Free Software Foundation, either version 3 of the License, or        ~
+~  (at your option) any later version.                                      ~
+~                                                                           ~
+~  This program is distributed in the hope that it will be useful,          ~
+~  but WITHOUT ANY WARRANTY; without even the implied warranty of           ~
+~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            ~
+~  GNU General Public License for more details.                             ~
+~                                                                           ~
+~  You should have received a copy of the GNU General Public License        ~
+~  along with this program.  If not, see <https://www.gnu.org/licenses/>.   ~
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+var $x=diff{8, 4} 
+~ Stores the value of (8 - 4) in x. ~
+
+var $y=prod{8, 4}
+~ Stores the value of (8 * 4) in y. ~
+
+var $z=quot{8, 4}
+~ Stores the value of (8 / 4) in z. ~
+
+start{
+
+    output("Eight minus four equals ")
+    output(x)
+    output(".")
+    newl 
+    ~ Shortcut for newlines. `output(\n)` also works. ~
+
+    output("Eight times four equals ")
+    output(y)
+    output(".")
+    newl
+
+    output("Eight divided by four equals ")
+    output(z)
+    output(".")
+    newl
+
+}end

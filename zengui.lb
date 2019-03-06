@@ -1,0 +1,59 @@
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+~  Copyright (C) 2019  Dante Falzone                                        ~
+~                                                                           ~
+~  This program is free software: you can redistribute it and/or modify     ~
+~  it under the terms of the GNU General Public License as published by     ~
+~  the Free Software Foundation, either version 3 of the License, or        ~
+~  (at your option) any later version.                                      ~
+~                                                                           ~
+~  This program is distributed in the hope that it will be useful,          ~
+~  but WITHOUT ANY WARRANTY; without even the implied warranty of           ~
+~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            ~
+~  GNU General Public License for more details.                             ~
+~                                                                           ~
+~  You should have received a copy of the GNU General Public License        ~
+~  along with this program.  If not, see <https://www.gnu.org/licenses/>.   ~
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+~ This is the Zenity GUI library for the Boi programming language.    ~
+~ Put `include zengui.lb` in your program's header to include it.     ~
+~ It should be noted that spaces can't be used here. Use underscores  ~
+~ instead.                                                            ~
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+~ `info()`: a function for making information popups. ~
+~ Takes two strings as arguments. The first string    ~
+~ becomes the title of the gui window; the second is  ~
+~ the text displayed in it.                           ~
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+func info(title, text) {
+    var $half="zenity --info --title=" + title
+    var $command=half + " --text=" + text
+    system(command)
+}
+
+
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+~ `text_entry()`: a function for making a gui that contains ~
+~ a text field for the user to type in to. Takes two        ~
+~ strings as arguments and echos the entered text to the    ~
+~ shell, which can then be read as stdin.                   ~
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+func text_entry(title, text) {
+    var $half="zenity --entry --title=" + title
+    var $command=half + " --text=" + text
+    system(command)
+}
+
+
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+~  `notification()`: a function for displaying a notification   ~
+~  at the top of the screen. Takes one string as its argument.  ~
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+func notification(text) {
+    var $command="zenity --notification --text=" + text
+    system(command)
+}

@@ -1,0 +1,27 @@
+
+        var $name=void
+        var $answer=void
+start{
+    output("hello, what is your name?\n")
+    
+    input(64, name)
+    output("Hello ")
+    output(name)
+    newl
+    output("do you want to play a game with me ")
+    output(name)
+    output("?")
+    newl
+    input(3, answer)
+    if (answer=="yes") then {
+        output("Great!\n")
+        
+    } else {
+        if (answer=="no") then {
+            output("Boo!\n")
+        } else {
+            output("Stop talking nonsense\n")
+        } end-if
+    } end-if
+        
+}end

@@ -1,0 +1,439 @@
+The complete guide to the Boi programming language.
+----------------------------------------------------------------------
+0. 'Hello, world!' variant 0.
+
+    start{
+        output("Hello, world!")
+        newl
+    }end
+    
+The function `output()` is used to print something to
+the shell. If it is given an integer or a floating-point
+decimal, it automatically retypes it to a string.
+`newl` is a reserved word that prints a newline.
+`output("\n")` also works, but takes longer to write.
+----------------------------------------------------------------------
+1. Two plus two: Using the `sum{}` operator.
+
+    var $x=2
+
+    start{
+        output(sum{x, x})
+    }end
+
+----------------------------------------------------------------------
+2. 'Hello, world!' variant 1, using comments.
+
+    ~ This is a comment. ~
+    start{
+    ~ The compiler will ignore this line. ~
+        output("Hello, world!")
+        newl
+    ~ Also this one. ~
+    }end
+    ~ This line as well. ~
+
+----------------------------------------------------------------------
+3. More arithmetic operations.
+
+    var $x=diff{8, 4} 
+    ~ Stores the value of (8 - 4) in x. `diff` is for `difference`. ~
+
+    var $y=prod{8, 4} 
+    ~ Stores the value of (8 * 4) in y. `prod` is for `product`. ~
+
+    var $z=quot{8, 4} 
+    ~ Stores the value of (8 / 4) in z. `quot` is for `quotient`. ~
+
+    start{
+        
+        output("Eight minus four equals ")
+        output(x)
+        output(".")
+        newl 
+        ~ Shortcut for newlines. `output("\n")` also works. ~
+        output("Eight times four equals ")
+        output(y)
+        output(".")
+        newl
+        output("Eight divided by four equals ")
+        output(z)
+        output(".")
+        newl
+
+    }end
+
+----------------------------------------------------------------------
+4. A common syntax error: Nested operator brackets.
+
+This won't work:
+
+    start{
+        
+        output(sum{prod{2, 2}, 2})
+        
+    }end
+    
+This will:
+
+    var $product=prod{2, 2}
+    
+    start{
+        
+        output(sum{product, 2})
+        
+    }end
+
+----------------------------------------------------------------------
+5. Typing of variable assignments.
+
+Variables in Boi are automatically typed as follows.
+
+The following:
+
+    var $foo="bar"
+    
+automatically types foo as a string, because of the
+double quotation marks.
+
+But this:
+
+    var $foo=574657
+    
+automatically types foo as an integer.
+
+And this:
+
+    var $foo=3.14159
+    
+automatically types foo as a floating-point decimal.
+
+And finally, this:
+
+    var $foo=void
+    
+automatically types foo as a string, with nothing
+assigned to it. This is a `void variable`.
+----------------------------------------------------------------------
+6. Inputs.
+
+The syntax for the built-in input function in Boi 
+is as follows:
+
+input(<number of characters>, <a void variable name>)
+    
+where <number of characters> is the largest number
+of characters you'd want to put in the void
+variable and the void variable's name has already 
+been declared.
+
+Using this function means that the program will
+await the user typing something in, then store whatever
+the user types in a (previously) void variable.
+
+Example:
+
+    var $name=void
+    
+    start{
+        output("Hello, what's your name?")
+        newl
+        input(64, name)
+        ~ We're assuming that no one with a ~
+        ~ name 64 or more characters long   ~
+        ~ will be using this program.       ~
+        output("It's very nice to meet you, ")
+        output(name)
+        output(".")
+        newl
+    }end
+
+If, in this example, the user attempts to store a string
+of length 65 or more characters in the variable `name`,
+then the program will throw an overflow error and quit.
+----------------------------------------------------------------------
+7. Conditional statements and expressions.
+
+Syntax for conditional blocks is as follows:
+
+if (some condition) then {
+    statements
+} else {
+    if (another condition) then {
+        statements
+    } end-if
+} end-if
+
+There must be one end-if for every if. It is recommended
+to use multiple levels of indentation to keep track of
+where the if and end-if statements are.
+
+Almost all valid C expressions are valid Boi expressions,
+with the following exceptions:
+
+    0. The C expression `x++` is short for `x = x + 1`. The 
+       equivalent expression in Boi is `inc(x)`.
+       
+    1. The C expression `x--` is short for `x = x - 1`. The
+       equivalent expression in Boi is `inc(-x)`.
+----------------------------------------------------------------------
+8. for-loops.
+
+Syntax of a for loop:
+
+    for (<expression> to <expression>) do {
+        statements
+    } end-loop
+    
+Both expressions must evaluate to integers. If the second
+expression is smaller than the first, the for loop won't
+do anything. If the second expression is larger than the
+first, then the for loop will repeat the statements between
+the brackets ((second expression) - (first expression)) times.
+
+Example:
+
+    start{
+        for (3 to 6) do {
+            output("Again!")
+        } end-loop
+    }end
+    
+The above example will give the following output:
+
+Again!
+Again!
+Again!
+
+Because (6 - 3) evaluates to 3, it loops through 3 times.
+
+Arithmetic operators like sum{}, diff{}, prod{}, and
+quot{} can be used in for loops, like in the following example:
+
+    start{
+        for (sum{2, 2} to quot{64, 8}) do {
+            output("Again!")
+            newl
+        } end-loop
+    }end
+    
+which will give the following output:
+
+Again!
+Again!
+Again!
+Again!
+
+It loops four times, because ((64 / 8) - (2 + 2)) evaluates
+to four.
+
+Sometimes you might want the user to be able to specify the
+parameters of a for loop. Now, since input() can only store something
+in a void variable, and since void variables are automatically typed
+as strings, you can't use such a variable as a for loop parameter.
+What you need to do is retype it as an integer using the `toint()`
+function.
+----------------------------------------------------------------------
+9. while-loops and until-loops.
+
+A while loop has the following syntax:
+
+    while (some condition) do {
+        statements
+    } end-loop
+    
+It repeats the statements as long as the condition remains true.
+For example:
+
+    start{
+        var $hooray=0
+        while (hooray < 5) do {
+            output("Hooray!")
+            newl
+            inc(hooray)
+        } end-loop
+    }end
+    
+Each time it goes through the loop, it first checks if the variable
+hooray is less than five. If it is, it outputs "Hooray!" and then
+increments hooray by one. The output is this:
+
+Hooray!
+Hooray!
+Hooray!
+Hooray!
+Hooray!
+
+If it didn't increment hooray each time, it would continue forever,
+which could lead to undefined behaviour if it isn't stopped.
+
+An until-loop is similar. It has the following syntax:
+
+    until (some condition) do {
+        statements
+    } end-loop
+    
+It differs from the while loop in one regard: whereas a while loop
+repeats as long as the condition is *true*, the until loop repeats
+as long as the condition is *false*.
+For example:
+
+    start{
+        var $job=10
+        until (job == 0) do {
+            output("Good job!")
+            newl
+            inc(-job)
+        } end-loop
+    }end
+    
+Each time it goes through the loop, it first checks if the variable
+job is equal to zero. If it *isn't*, it outputs "Good job!" and then
+decrements job by one. The output is this:
+
+Good job!
+Good job!
+Good job!
+Good job!
+Good job!
+Good job!
+Good job!
+Good job!
+Good job!
+Good job!
+
+Just like a while loop, an until loop must have an exit condition or
+it will repeat forever.
+----------------------------------------------------------------------
+10. Functions.
+
+A function declaration must come before the `start{` token and has the
+following syntax:
+
+    func function_name(arguments) {
+        statements
+    } end-func
+    
+Functions are not typed and do not have return values in Boi. To get
+a value out of a function, declare a variable and do a variable
+reassignment within the function.
+
+Function calls use the following syntax:
+
+    do function_name(arguments)
+    
+The argument void means that no argument is passed to the function.
+There must be something in the parentheses, or the function will
+throw a syntax error.
+----------------------------------------------------------------------
+11. The floating-point decimal type.
+
+The function `toflo(name)` will assume that name is a string literal
+and then try to return name as a float.
+
+Example:
+
+    var $money=void
+    ~ Remember, void variables are automatically typed as strings. ~
+
+    start{
+        output("Type in how much money you have.\n$ ")
+        input(32, money)
+        output("Now I will take five dollars from you.")
+        var $money_float=toflo(money)
+        ~ The above line retypes `money` as a float. ~
+        output("\nYou now have ")
+        output(money_float - 5.0)
+        output(" dollars.")
+        newl
+    }end
+    
+When this program is run, if the user types in "17.36" at the prompt,
+then the program will retype the string literal "17.36" as the 
+floating point number 17.36, at which point it can subtract 5.0 from 
+it. The program will therefore output 12.36 as the user's new balance.
+
+But suppose you wanted to assign a variable to another variable as a
+float, like in the following example:
+
+    var $my_float=3.14159
+    ~ The above variable declaration types `my_float` as a float. ~
+
+    var $re_name=my_float
+
+    start{
+        output(re_name)
+    }end
+
+In this program, the variable `re_name` will have the integer value 3
+stored in it. The reason is because, when the compiler looks at the 
+line `var $re_name=my_float`, it tries to figure out what type to give
+to `re_name` by looking at `my_float`. Since it isn't double-quoted,
+and it isn't void, it doesn't get typed as a string; since it isn't a
+series of numerals with a period in it, it doesn't get automatically
+typed as a float. As a result, it defaults to typing it as an
+integer. To solve this, you can explicitly declare the type as float
+using `.flo`, as follows:
+
+    var $re_name=my_float.flo
+    
+This ensures that the compiler knows that `my_float` should have its
+value assigned to `re_name` as a float.
+----------------------------------------------------------------------
+12. The `system()` function.
+
+`system()` takes an argument of type string and passes it directly to
+the shell. This can be a string literal, or a variable. It is wise to
+have very good familiarity with the shell script that you're trying to
+pass to the shell. The most popular modern-day Unix-based systems use
+Bash as their shell.
+
+The following:
+
+    start{
+        system("string=\"Hello, world!\" && echo $string")
+    }end
+
+passes a somewhat convoluted hello world program in Bash to the shell.
+----------------------------------------------------------------------
+13. Libraries.
+
+Some libraries for Boi have been written. To include one of these
+libraries in your program, use the following syntax:
+
+    include <library name>
+    
+If these libraries are in the same folder as your Boi program, then
+the code in that library will become available to you to use. Some
+examples:
+
+    zengui.lb - A library for making very simple GUIs on Unix-based
+                systems. Requires the `zenity` dependency.
+                
+    beep.lb - A library for making beeping noises.
+    
+Hopefully, more libraries will be written in the future.
+----------------------------------------------------------------------
+14. Compiling and running Boi programs.
+
+As of the time of this writing, the syntax for compiling and running
+a Boi program is as follows:
+
+    boi <filename with .boi extension>
+    
+This will run the program, and it will also save an executable whose
+name is the source file's name with .binary at the end.
+
+For example, this command:
+
+    boi example.boi
+    
+tells the computer to compile and run `example.boi`, then saves the
+compiled executable with the name `example.boi.binary`. If you want
+to run the program again without recompiling it, you can use this
+command:
+
+    ./example.boi.binary
+    
+and it run the executable.
+----------------------------------------------------------------------

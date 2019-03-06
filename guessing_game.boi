@@ -1,0 +1,143 @@
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+~  guessing_game.boi, a simple program written in Boi.                      ~
+~  Copyright (C) 2019  Dante Falzone                                        ~
+~                                                                           ~
+~  This program is free software: you can redistribute it and/or modify     ~
+~  it under the terms of the GNU General Public License as published by     ~
+~  the Free Software Foundation, either version 3 of the License, or        ~
+~  (at your option) any later version.                                      ~
+~                                                                           ~
+~  This program is distributed in the hope that it will be useful,          ~
+~  but WITHOUT ANY WARRANTY; without even the implied warranty of           ~
+~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            ~
+~  GNU General Public License for more details.                             ~
+~                                                                           ~
+~  You should have received a copy of the GNU General Public License        ~
+~  along with this program.  If not, see <https://www.gnu.org/licenses/>.   ~
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+var $my_name=void
+var $state=void
+var $congrats=void
+var $count=3
+var $x=void
+var $y=void
+
+func foo(void) {
+    var $bar=5
+    until (bar == 0) do {
+        output("oof")
+        newl
+        inc(-bar)
+    } end-loop
+} end-func
+
+start{
+    
+    do foo(void)
+
+    output("Hello, how are you?")
+    newl
+    input(8, state)
+    
+    if (state == "good") then {
+        output("That's good to hear.")
+    } else {
+        if (state == "bad") then {
+        output("I'm sorry to hear that.")
+        } else {
+            output("What? I only understand 'good' and 'bad'.")
+        } end-if
+    } end-if
+    
+    newl
+    output("Can you guess my name?")
+    newl
+    input(64, my_name)
+    
+    if (my_name == "Dante") then {
+        output("That's my first name.")
+    } else {
+        if (my_name == "James") then {
+            output("That's my middle name.")
+        } else {
+            if (my_name == "Falzone") then {
+                output("That's my last name.")
+            } else {
+                output("Nope! Sorry.")
+            } end-if
+        } end-if
+    } end-if
+    
+    newl
+    
+    output("Type 'okay' to get congratulated.")
+    
+    newl
+    
+    input(8, congrats)
+    
+    if (congrats == "okay") {
+        output("Congratulations!")
+    } end-if
+    
+    newl
+    
+    output("I'm going to count down from three now.")
+    newl
+    for (0 to 3) do {
+        output(count)
+        inc(-count)
+        ~ The above line could be expressed as "count--" in C. ~  
+        newl
+    } end-loop
+
+    newl
+    output("The number of times that I say hello is equal to\nfive times three.")
+    newl
+    for (0 to prod{3, 5}) do {
+        output("Hello!")
+        newl
+    } end-loop
+    
+    newl
+    
+    output("Now I will multiply two numbers for you. Type in\na number between -999 and 999.")
+    newl
+    input(3, x)
+    newl
+    output("Now type in another number between -999 and 999.")
+    newl
+    input(3, y)
+    newl
+    output(x)
+    output(" times ")
+    output(y)
+    output(" equals ")
+    var $intx=toint(x)
+    var $inty=toint(y)
+    output(prod{intx, inty})
+    output(".")
+    newl
+
+
+    ~ Testing the while loop. ~
+    var $hooray=0
+    while (hooray < 5) do {
+        output("Hooray!")
+        newl
+        inc(hooray)
+    } end-loop
+
+
+    ~ Testing the until loop. ~
+    var $job=10
+    until (job == 0) do {
+        output("Good job!")
+        newl
+        inc(-job)
+    } end-loop
+
+
+}end
+~ STOP READING ~

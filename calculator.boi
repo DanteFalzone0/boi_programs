@@ -1,0 +1,129 @@
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+~  Copyright (C) 2019  Dante Falzone                                        ~
+~                                                                           ~
+~  This program is free software: you can redistribute it and/or modify     ~
+~  it under the terms of the GNU General Public License as published by     ~
+~  the Free Software Foundation, either version 3 of the License, or        ~
+~  (at your option) any later version.                                      ~
+~                                                                           ~
+~  This program is distributed in the hope that it will be useful,          ~
+~  but WITHOUT ANY WARRANTY; without even the implied warranty of           ~
+~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            ~
+~  GNU General Public License for more details.                             ~
+~                                                                           ~
+~  You should have received a copy of the GNU General Public License        ~
+~  along with this program.  If not, see <https://www.gnu.org/licenses/>.   ~
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+var $num0=void
+var $num1=void
+
+func mult(first_number, second_number) {
+    var $number_a=toflo(first_number)
+    var $number_b=toflo(second_number)
+    var $buffer=(number_a.flo * number_b.flo)
+    output(buffer)
+} end-func
+
+
+func sum(first_number, second_number) {
+    var $number_a=toflo(first_number)
+    var $number_b=toflo(second_number)
+    var $buffer=(number_a.flo + number_b.flo)
+    output(buffer)
+} end-func
+
+
+func subtr(first_number, second_number) { 
+    var $number_a=toflo(first_number)
+    var $number_b=toflo(second_number)
+    var $buffer=(number_a.flo - number_b.flo)
+    output(buffer)
+} end-func
+
+
+func div(first_number, second_number) {
+    var $number_a=toflo(first_number)
+    var $number_b=toflo(second_number)
+    var $buffer=(number_a.flo / number_b.flo)
+    output(buffer)
+} end-func
+
+
+func prompt(void) {
+    output("Would you like to add, subtract, divide, or multiply?")
+    newl
+    var $answer=void
+    input(32, answer)
+    if (answer == "add") then {
+        output("Input the first number.")
+        newl
+        input(64, num0)
+        output("Input the second number.")
+        newl
+        input(64, num1)
+        output(num0)
+        output(" plus ")
+        output(num1)
+        output(" equals ")
+        do sum(num0, num1)
+        output(".")
+        newl
+    } else {
+        if (answer == "subtract") then {
+            output("Input the first number.")
+            newl
+            input(64, num0)
+            output("Input the number you'd like to subtract from it.")
+            newl
+            input(64, num1)
+            output(num0)
+            output(" minus ")
+            output(num1)
+            output(" equals ")
+            do subtr(num0, num1)
+            output(".")
+            newl
+        } else {
+            if (answer == "multiply") then {
+                output("Input the first number.")
+                newl
+                input(64, num0)
+                output("Input the second number.")
+                newl
+                input(64, num1)
+                output(num0)
+                output(" times ")
+                output(num1)
+                output(" equals ")
+                do mult(num0, num1)
+                output(".")
+                newl
+            } else {
+                if (answer == "divide") then {
+                    output("Input the first number.")
+                    newl
+                    input(64, num0)
+                    output("Input the number you want to divide it by.")
+                    newl
+                    input(64, num1)
+                    output(num0)
+                    output(" divided by ")
+                    output(num1)
+                    output(" equals ")
+                    do div(num0, num1)
+                    output(".")
+                    newl
+                } else {
+                    output("Sorry, I didn't understand.")
+                    newl
+                    do prompt(void)
+                } end-if
+            } end-if
+        } end-if
+    } end-if
+} end-func
+
+
+start{
+    do prompt(void)
+}end

@@ -1,0 +1,29 @@
+var $response0=void
+
+func ask(void) {
+    input(8, response0)
+    if (response0 == "good") then {
+        output("That's good to hear.")
+        newl
+    } else {
+        if (response0 == "bad") then {
+            output("I'm sorry to hear that.")
+            newl
+        } else {
+            output("Sorry, I didn't understand that.")
+            newl
+            output("How are you doing today?\n")
+            do ask(void)
+        } end-if
+    } end-if
+} end-func
+
+
+start{
+
+    output("Hello, how are you doing today?\n")
+    output("(Type in 'good' or 'bad'.)")
+    do ask(void)
+    output("Goodbye.\n")
+
+} end
